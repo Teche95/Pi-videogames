@@ -2,14 +2,14 @@ import axios from "axios";
 
 export function getAllGames() {
     return async dispatch => {
-        let response = await axios("http://localhost:3001/videogames")
+        let response = await axios("/videogames")
         return dispatch({ type: "GET_ALL_GAMES", payload: response.data })
     }
 }
 
 export function getGameByID(id) {
     return async dispatch => {
-        let response = await axios(`http://localhost:3001/videogame/${id}`)
+        let response = await axios(`/videogame/${id}`)
         // console.log(json.data)
         return dispatch({ type: "GET_DETAILS", payload: response.data })
     }
@@ -23,7 +23,7 @@ export function resetDetails() {
 
 export function searchGame(name) {
     return async dispatch => {
-        let response = await axios(`http://localhost:3001/videogames?name=${name}`)
+        let response = await axios(`/videogames?name=${name}`)
         // if(!(response.data === 'no se encontró juego')) 
         // if(!response.data[0].message) dispatch({ type: "SEARCH_NAME", payload: response.data })
         // return response.data[0].message
@@ -69,7 +69,7 @@ export function filterByRating(payload) {
 
 export function getGenres() {
     return async dispatch => {
-        let response = await axios.get("http://localhost:3001/genres")
+        let response = await axios.get("/genres")
         // console.log(json.data)
         return dispatch({ type: "GET_GENRES", payload: response.data })
     }
@@ -77,7 +77,7 @@ export function getGenres() {
 
 export function gamePost(payload) {
     return async dispatch => {
-        let response = await axios.post("http://localhost:3001/videogames",payload)
+        let response = await axios.post("/videogames",payload)
         // console.log(response)
         return response.data
         // dispatch({ type: "POST_GAME", payload: response.data })
@@ -86,7 +86,7 @@ export function gamePost(payload) {
 
 export function getPlatforms() {
     return async dispatch => {
-        let response = await axios.get("http://localhost:3001/platforms")
+        let response = await axios.get("/platforms")
         return dispatch({ type: "GET_PLATFORM", payload: response.data })
     }
 }
