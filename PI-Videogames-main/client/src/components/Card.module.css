@@ -1,0 +1,41 @@
+/* .card{ */
+  /* display: flex;
+  justify-content: center;
+  flex-direction: row;
+  height: 100vh; */
+/* } */
+
+/* .text {
+ 
+} */
+
+.CardContainer{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    width: 80%;
+    margin: 0 auto;
+}
+
+ /* .wrapper{
+    position: relative;
+    width: 300px;
+    height: 300px;
+    display: flex;
+    flex-flow: column nowrap;
+ }  */
+
+/* .wrapper > img {
+    position: absolute;
+    
+} */
+
+/* .wrapper > h3 {
+    position: absolute;
+    bottom:
+} */
+
+/* .wrapper > h4 {
+    position: absolute;
+    top:20px;
+} */

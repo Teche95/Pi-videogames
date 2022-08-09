@@ -1,0 +1,10 @@
+.pacman {
+    display        : flex;
+    justify-content: center;
+    padding-top    : 20%;
+    padding-right  : 5%;
+}
+
+/* .container{
+
+} */
