@@ -14,7 +14,7 @@ const getApiInfo = async () => {
     // deberia hacer request a 5 paginas con un for <= 5
     try {
         let array = []
-        for (let i = 1; i <= 1; i++) {
+        for (let i = 1; i <= 5; i++) {
             let info = await axios.get(`https://api.rawg.io/api/games?key=${apikey}&page=${i}`)
             info.data.results?.map(el => {
                 array.push({

@@ -1,10 +1,27 @@
 .pacman {
-    display        : flex;
-    justify-content: center;
-    padding-top    : 20%;
-    padding-right  : 5%;
+    display                  : flex;
+    justify-content          : center;
+    align-items              : center;
+    height                   : 100vh;
+    animation-name           : pacman-mamao;
+    animation-duration       : 2s;
+    animation-timing-function: ease-in-out;
+    animation-direction      : alternate;
+    animation-iteration-count: infinite;
+    overflow                 : hidden;
 }
 
-/* .container{
+.Loading {
+    overflow        : hidden;
+    background-color: #292929
+}
 
-} */
+@keyframes pacman-mamao {
+    from {
+        transform: scale(0);
+    }
+
+    to {
+        transform: scale(1);
+    }
+}

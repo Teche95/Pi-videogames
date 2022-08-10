@@ -1,9 +1,9 @@
-import './reset.css';
 import { BrowserRouter, Route, Switch } from "react-router-dom"
 import Home from './components/Home';
 import Details from './components/Details';
 import CreateGame from "./components/CreateGame"
 import LandingPage from './components/LandingPage';
+import './reset.css';
 
 function App() {
   return (
