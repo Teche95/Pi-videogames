@@ -1,41 +1,50 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-// import { Link } from 'react-router-dom';
 import { searchGame } from '../actions';
+import LoadingSearch from "./LoadingSearch"
+import styless from "./Home.module.css"
 
-
-const SearchBar = () => {
+const SearchBar = ({ setCurrentPage }) => {
     const dispatch = useDispatch()
-    // const resetHomePage = useSelector(state => state.allGames)
-
     const [name, setName] = useState("")
+    const [loader, setLoader] = useState(false)
 
-
-    // necesito una funcion que me guarde en el estado lo que escribe el usuario
     const handleUserInput = (e) => {
         e.preventDefault()
         setName(e.target.value)
     }
 
     const handleSearchName = async (e) => {
-        // e.preventDefault()
         // let ayuda = await dispatch(searchGame(name))
         // ayuda === 'no se encontró juego' && alert(ayuda)
-
+        setLoader(true)
         if (name === "") {
             alert("Ingrese busqueda")
+            setLoader(false)
         } else {
-            dispatch(searchGame(name))
+            dispatch(searchGame(name)).then(() => setLoader(false))
+            setCurrentPage(1)
+            setName("")
         }
-        setName("")
     }
 
     return (
         <div>
-            <input type="text" value={name} placeholder="Buscar juego..." onChange={e => handleUserInput(e)} />
-            <button type="submit" onClick={e => handleSearchName(e)}>Buscar</button>
+            {
+                loader ? <LoadingSearch /> :
+                    <div className={styless.searchbar}>
+                        <input className={styless.searchbar__input} type="text" value={name} placeholder="Buscar juego..." onChange={e => handleUserInput(e)} />
+
+                        <button className={styless.searchbar__button} type="submit" onClick={e => handleSearchName(e)}>
+                            <span class="material-symbols-outlined">
+                                search
+                            </span>
+                        </button>
+                    </div>
+            }
         </div>
     )
 }
 
 export default SearchBar
+

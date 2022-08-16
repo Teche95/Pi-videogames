@@ -9,6 +9,7 @@ const initialState = {
 function Reducer(state = initialState, action) {
     switch (action.type) {
         case "GET_ALL_GAMES":
+
             return {
                 ...state,
                 allGames: action.payload,
@@ -51,13 +52,18 @@ function Reducer(state = initialState, action) {
             }
 
         case "FILTER_GAME_EXIST":
-            let b = state.allGamesAux
+            // let state.allGamesAux = state.allGamesAux
+
             // let gameExists = action.payload === "Created" ? b.filter(el => el.createdInDb) : 
-            let gameExists = action.payload === "Created" ? b.filter(el => el.createdInDb) : state.allGamesAux
+
+            let gameExists = action.payload === "Api" ? state.allGamesAux.filter(el => typeof el.id === "number") : state.allGamesAux.filter(el => typeof el.id === "string")
+
             return {
                 ...state,
                 allGames: action.payload === "All" ? state.allGamesAux : gameExists
             }
+        // allGames: action.payload === "All" ? state.allGamesAux : gameExists
+
         case "FILTER_ORDER":
             let order = action.payload === "a-z" ?
                 state.allGames.sort((a, b) => {
@@ -115,6 +121,14 @@ function Reducer(state = initialState, action) {
             return {
                 ...state,
                 platforms: action.payload
+            }
+        case "DELETE_GAME":
+            //  state.allGamesAux
+            // console.log(delete1);
+            let oneGame = state.allGamesAux.filter(el => el.id !== action.payload)
+            return {
+                ...state,
+                allGames: oneGame
             }
         default:
             return state

@@ -1,5 +1,5 @@
 import React from "react";
-import image from "../images/pacrun-pacman.gif"
+import image from "../images/c798fa254b786f1901a12fb645d61c724e97d599_hq.gif"
 import styles from "./Pacman.module.css"
 
 

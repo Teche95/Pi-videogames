@@ -2,11 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import { gamePost, getGenres, getPlatforms } from "../actions";
-
+import styles from "./CreateGame.module.css"
 
 const CreateGame = () => {
     const dispatch = useDispatch();
     const history = useHistory();
+    const games = useSelector(state => state.allGames)
     const allGenres = useSelector(state => state.genres)
     const allPlatforms = useSelector(state => state.platforms)
     // const [isDisabled, setDisabled] = useState(false);
@@ -131,29 +132,32 @@ const CreateGame = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        // alreadyExists === "Ya existe un juego con ese nombre" && alert(alreadyExists)
 
         if (!input.name || !input.description || !input.released || !input.image || !input.genres.length || !input.platforms.length) {
             // console.log("object");
-            alert("Faltan datos")
+            return alert("Faltan datos")
         }
-
-        let alreadyExists = await dispatch(gamePost(input))
-        if (alreadyExists === "Ya existe un juego con ese nombre") return alert("Ya existe un juego con ese nombre")
+        if (games.find(el => el.name.toLowerCase() === input.name.toLowerCase())) {
+            return alert("Ya existe un juego con ese nombre")
+        }
+        dispatch(gamePost(input))
         alert("Juego creado")
+        // let alreadyExists = await 
+        // if (alreadyExists === "Ya existe un juego con ese nombre") return alert("Ya existe un juego con ese nombre")
+        // alert("Juego creado")
         history.push("/home")
     }
 
     return (
-        <div>
+        <div className={styles.container}>
 
-            <Link to="/home">
-                <button>Volver</button>
+            <Link className={styles.btnvolver} to="/home">
+                Volver
             </Link>
 
-            <form autoComplete="off" onSubmit={(e) => { handleSubmit(e) }}>
+            <form className={styles.form} autoComplete="off" onSubmit={(e) => { handleSubmit(e) }}>
 
-                <div>
+                <div className={styles.nameinput}>
                     <label>Name: </label>
                     <input
                         type="text"
@@ -168,21 +172,9 @@ const CreateGame = () => {
                     }
                 </div>
 
-                <div>
-                    <label>Description: </label>
-                    <input
-                        type="text"
-                        value={input.description}
-                        name="description"
-                        // required 
-                        onChange={e => handleInputChange(e)}
-                    />
-                    {
-                        errors.description && <span> {errors.description}</span>
-                    }
-                </div>
 
-                <div>
+
+                <div className={styles.releasedinput}>
                     <label>Released: </label>
                     <input
                         type="date"
@@ -195,7 +187,7 @@ const CreateGame = () => {
                     }
                 </div>
 
-                <div>
+                <div className={styles.imageinput}>
                     <label>Image: </label>
                     <input
                         type="url"
@@ -209,7 +201,7 @@ const CreateGame = () => {
                     }
                 </div>
 
-                <div>
+                <div className={styles.ratinginput}>
                     <label>Rating: </label>
                     <input
                         type="number"
@@ -223,7 +215,7 @@ const CreateGame = () => {
                     }
                 </div>
 
-                <div>
+                <div className={styles.genresinput}>
                     <label>Genres: </label>
                     <select onChange={e => handleGenres(e)}>
                         <option value="select">Seleccionar...</option>
@@ -233,21 +225,23 @@ const CreateGame = () => {
                             )
                         }
                     </select>
+                    <div className={styles.gp}>
+                        {
+                            input.genres.map(el =>
+                                <div >
+                                    <button type="button" onClick={() => handleDeleteGenres(el)}>x</button>
+                                    <p>{el}</p>
+                                </div>
+                            )
+                        }
+                    </div>
 
-                    {
-                        input.genres.map(el =>
-                            <div>
-                                <p>{el}</p>
-                                <button type="button" onClick={() => handleDeleteGenres(el)}>x</button>
-                            </div>
-                        )
-                    }
                     {
                         errors.genres && <span> {errors.genres}</span>
                     }
                 </div>
 
-                <div>
+                <div className={styles.platforminput}>
                     <label>Platforms: </label>
                     <select onChange={e => handlePlatforms(e)}>
                         <option value="select">Seleccionar...</option>
@@ -257,20 +251,42 @@ const CreateGame = () => {
                             )
                         }
                     </select>
-                    {
-                        input.platforms.map(el =>
-                            <div>
-                                <p>{el}</p>
-                                <button type="button" onClick={() => handleDeletePlatforms(el)}  >x</button>
-                            </div>)
-                    }
+                    <div className={styles.gp}>
+                        {
+                            input.platforms.map(el =>
+                                <div>
+                                    <p>{el}</p>
+                                    <button type="button" onClick={() => handleDeletePlatforms(el)}  >x</button>
+                                </div>)
+                        }
+                    </div>
+
                     {
                         errors.platforms && <span> {errors.platforms}</span>
                     }
                 </div>
 
+                <div className={styles.descriptioninput}>
+                    <label>Description: </label>
+                    <textarea
+                        placeholder="agrega una breve descripcion"
+                        rows="10"
+                        cols="50"
+                        type="text"
+                        value={input.description}
+                        name="description"
+                        // required 
+                        onChange={e => handleInputChange(e)}
+                    />
+                    {
+                        errors.description && <span> {errors.description}</span>
+                    }
+                </div>
 
-                <button type="submit" disabled={errors.name || errors.description || errors.image || errors.rating ? true : false}  >Crear Juego</button>
+                <div className={styles.btncrear}>
+                    <button className={styles.crearjuego} type="submit" disabled={errors.name || errors.description || errors.released || errors.image || errors.rating ? true : false}  >Crear Juego</button>
+                </div>
+
                 {/* si esta en false se habilita  */}
                 {/* en true de deshabilita */}
             </form>

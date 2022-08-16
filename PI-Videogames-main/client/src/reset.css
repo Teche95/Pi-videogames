@@ -18,6 +18,7 @@
 */
 html,
 body {
+  background-color: #2D2D2D;
   height: 100%;
 }
 
@@ -77,4 +78,8 @@ h6 {
 html {
   font-family: 'Montserrat', sans-serif;
   font-size: 62.5%;
+}
+
+ul {
+  padding: none;
 }

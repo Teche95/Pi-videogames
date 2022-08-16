@@ -23,13 +23,13 @@ export function resetDetails() {
 
 export function searchGame(name) {
     return async dispatch => {
-        let response = await axios(`/videogames?name=${name}`)
+        let response = await axios.get(`/videogames?name=${name}`)
         // if(!(response.data === 'no se encontró juego')) 
         // if(!response.data[0].message) dispatch({ type: "SEARCH_NAME", payload: response.data })
         // return response.data[0].message
         console.log(response.data);
         return dispatch({ type: "SEARCH_NAME", payload: response.data })
-    
+
     }
 }
 
@@ -77,7 +77,7 @@ export function getGenres() {
 
 export function gamePost(payload) {
     return async dispatch => {
-        let response = await axios.post("/videogames",payload)
+        let response = await axios.post("/videogames", payload)
         // console.log(response)
         return response.data
         // dispatch({ type: "POST_GAME", payload: response.data })
@@ -91,3 +91,9 @@ export function getPlatforms() {
     }
 }
 
+export function deleteGame(id) {
+    return async dispatch => {
+        let response = await axios.delete(`/delete/${id}`)
+        return dispatch({ type:"DELETE_GAME", payload: response.data})
+    }
+}

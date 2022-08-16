@@ -1,22 +1,25 @@
 .pacman {
-    display                  : flex;
-    justify-content          : center;
-    align-items              : center;
-    height                   : 100vh;
-    animation-name           : pacman-mamao;
-    animation-duration       : 2s;
-    animation-timing-function: ease-in-out;
-    animation-direction      : alternate;
-    animation-iteration-count: infinite;
-    overflow                 : hidden;
+    margin: 0 10rem 14rem 0;
+    /* margin-right:12rem;
+    margin-right: 14rem;
+    margin-bottom: 14rem; */
+    /* animation-name           : pacman-mamao;
+    animation-duration          : 2s;
+    animation-timing-function   : ease-in-out;
+    animation-direction         : alternate;
+    animation-iteration-count   : infinite; */
 }
 
 .Loading {
+    display         : flex;
     overflow        : hidden;
-    background-color: #292929
+    background-color: #414141;
+    justify-content : center;
+    align-items     : center;
+    height          : 100vh;
 }
 
-@keyframes pacman-mamao {
+/* @keyframes pacman-mamao {
     from {
         transform: scale(0);
     }
@@ -24,4 +27,4 @@
     to {
         transform: scale(1);
     }
-}
+} */

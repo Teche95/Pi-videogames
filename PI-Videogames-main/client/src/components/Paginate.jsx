@@ -1,4 +1,6 @@
 import React from "react";
+import styless from "./Home.module.css"
+
 
 const Paginate = ({ gamePerPage, games, paginado }) => {
     const numberPage = []
@@ -7,12 +9,12 @@ const Paginate = ({ gamePerPage, games, paginado }) => {
         numberPage.push(i)
     }
     return (
-        <nav>
-            <ul>
+        <nav >
+            <li className={styless.paginado}>
                 {numberPage && numberPage.map((number, i) =>
-                    <button key={i} onClick={() => paginado(number)}>{number}</button>
+                    <button key={i} onClick={() => paginado(number)} className={styless.paginado__number}>{number}</button>
                 )}
-            </ul>
+            </li>
         </nav>
     )
 }

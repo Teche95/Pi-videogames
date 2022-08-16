@@ -14,7 +14,7 @@ const getApiInfo = async () => {
     // deberia hacer request a 5 paginas con un for <= 5
     try {
         let array = []
-        for (let i = 1; i <= 5; i++) {
+        for (let i = 1; i <= 1; i++) {
             let info = await axios.get(`https://api.rawg.io/api/games?key=${apikey}&page=${i}`)
             info.data.results?.map(el => {
                 array.push({
@@ -25,6 +25,7 @@ const getApiInfo = async () => {
                     released: el.released,
                     rating: el.rating,
                     platforms: el.platforms.map(el => el.platform.name)
+                    
                 })
             })
         }
@@ -101,7 +102,7 @@ router.get("/videogames", async (req, res) => {
         if (name) {
             let gameResult = allgames
                 .filter(game => game.name.toLowerCase().includes(name.toLowerCase()))
-                .slice(0, 15);
+                // .slice(0, 15);
             gameResult.length > 0
                 ? res.status(200).json(gameResult)
                 : res.send([])
@@ -116,7 +117,7 @@ router.get("/videogames", async (req, res) => {
         console.log(error.message)
     }
 })
-
+// 00 : 04 . 32
 // GET /videogame/{idVideogame}:
 // Obtener el detalle de un videojuego en particular
 // Debe traer solo los datos pedidos en la ruta de detalle de videojuego
@@ -139,6 +140,7 @@ router.get("/videogame/:id", async (req, res) => {
                 released: gameApi.data.released,
                 rating: gameApi.data.rating,
                 platforms: gameApi.data.platforms.map(el => el.platform.name)
+                
             }
             res.status(200).send(detailGame)
             // console.log(detailGame)

@@ -6,7 +6,8 @@
      flex-direction     : column;
      justify-content    : space-around;
      align-items        : center;
-     overflow           : hidden
+     overflow           : hidden;
+     /* background-repeat  : no-repeat */
  }
 
  .landingTitle>h1 {
