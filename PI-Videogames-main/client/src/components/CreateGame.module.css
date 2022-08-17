@@ -25,10 +25,10 @@ div {
 
 
 div>span {
-    position: absolute;
-    top     : 7.5rem;
-    color   : red;
-  font-size: 1.3rem
+    position : absolute;
+    top      : 7.5rem;
+    color    : red;
+    font-size: 1.3rem
 }
 
 div.descriptioninput>span {
@@ -178,13 +178,13 @@ div.descriptioninput>span {
 }
 
 .gp {
-    display               : flex;
-    flex-wrap          : wrap;
-    gap                   : 5px;
-  
+    display  : flex;
+    flex-wrap: wrap;
+    gap      : 5px;
+
 }
 
-/* .gp>div {
-    display: flex;
-} */
-
+.gpe {
+    color    : red;
+    font-size: 1.3rem
+}

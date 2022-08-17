@@ -44,7 +44,7 @@ const CreateGame = () => {
             errors.description = "No puede ser solo numeros"
         } else if (input.description.trim() === "" || input.description.length < 3) {
             errors.description = "No puede estar vacío"
-        } else if (/[!#$%&?¿°´*¬`~<>;':"\]{}()=_+-]/.test(input.description)) {
+        } else if (/[!#$%&?¿°´*¬`~<>;':"\]{}()=_+]/.test(input.description)) {
             errors.description = "Solo letras y numeros"
         }
 
@@ -66,13 +66,13 @@ const CreateGame = () => {
             errors.rating = "Rating entre 1 y 5"
         }
 
-        // if (input.genres.length === 0) {
-        //     errors.genres = "Al menos un genero"
-        // }
+        if (input.genres.length === 0) {
+            errors.genres = "Al menos un genero"
+        }
 
-        // if (input.platforms.length === 0) {
-        //     errors.platforms = "Al menos una plataforma"
-        // }
+        if (input.platforms.length === 0) {
+            errors.platforms = "Al menos una plataforma"
+        }
 
         return errors
     }
@@ -102,6 +102,10 @@ const CreateGame = () => {
                 ...input,
                 genres: [...input.genres, e.target.value]
             })
+            setErrors(validate({
+                ...input,
+                genres: [...input.genres, e.target.value]
+            }))
         }
     }
 
@@ -112,6 +116,10 @@ const CreateGame = () => {
                 ...input,
                 platforms: [...input.platforms, e.target.value]
             })
+            setErrors(validate({
+                ...input,
+                platforms: [...input.platforms, e.target.value]
+            }))
         }
     }
 
@@ -120,7 +128,10 @@ const CreateGame = () => {
             ...input,
             platforms: input.platforms.filter(el => el !== e)
         })
-
+        setErrors(validate({
+            ...input,
+            platforms: input.platforms.filter(el => el !== e)
+        }))
     }
 
     const handleDeleteGenres = (e) => {
@@ -128,6 +139,10 @@ const CreateGame = () => {
             ...input,
             genres: input.genres.filter(el => el !== e)
         })
+        setErrors(validate({
+            ...input,
+            genres: input.genres.filter(el => el !== e)
+        }))
     }
 
     const handleSubmit = async (e) => {
@@ -237,7 +252,7 @@ const CreateGame = () => {
                     </div>
 
                     {
-                        errors.genres && <span> {errors.genres}</span>
+                        errors.genres && <p className={styles.gpe}> {errors.genres}</p>
                     }
                 </div>
 
@@ -262,7 +277,7 @@ const CreateGame = () => {
                     </div>
 
                     {
-                        errors.platforms && <span> {errors.platforms}</span>
+                        errors.platforms && <p className={styles.gpe}> {errors.platforms}</p>
                     }
                 </div>
 
