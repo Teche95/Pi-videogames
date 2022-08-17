@@ -36,13 +36,7 @@ function Reducer(state = initialState, action) {
                 genres: action.payload
             }
         case "FILTER_GENRE":
-            // let todosLosGeneros = state.allGamesAux
-            // const genresFilter = action.payload === "ALL" ? todosLosGeneros : todosLosGeneros.filter(el => el.genres && el.genres.map(el => el).includes(action.payload))
-            // return {
-            //     ...state,
-            //     allGames: genresFilter
-            // }
-
+      
             let todosLosGeneros = state.allGamesAux
             let genresFilter = todosLosGeneros.filter(el => el.genres.map(el => el).includes(action.payload))
             return {
