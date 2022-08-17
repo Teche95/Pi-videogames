@@ -15,18 +15,22 @@ import styless from "./Home.module.css"
 import CardContainer from "./CardContainer"
 
 const Home = () => {
+    
     const dispatch = useDispatch()
     const games = useSelector(state => state.allGames)
     const reset = useSelector(state => state.details)
     const allGenres = useSelector(state => state.genres)
+
     const [orden, setOrden] = useState('')
     const [carga, setCarga] = useState(true)
-    const [currentPage, setCurrentPage] = useState(1)
-    const [gamePerPage, setGamePerPage] = useState(15)
-    const indexOfLastGame = currentPage * gamePerPage // = 15
-    const indexOfFirstGame = indexOfLastGame - gamePerPage // = 0
-    const currentGames = games.slice(indexOfFirstGame, indexOfLastGame)
 
+    const [currentPage, setCurrentPage] = useState(1) // 4 
+    const [gamePerPage, setGamePerPage] = useState(15)  // 15 
+    const indexOfLastGame = currentPage * gamePerPage //  4 * 15 = 60
+    const indexOfFirstGame = indexOfLastGame - gamePerPage // 60 - 15 = 45            
+    const currentGames = games.slice(indexOfFirstGame, indexOfLastGame)
+                                  //       45               60
+                                  //       [45, ... ,59]
     useEffect(() => {
         dispatch(getAllGames()).then(() => setCarga(false))
         dispatch(getGenres())
@@ -34,19 +38,6 @@ const Home = () => {
             dispatch(resetDetails())
             setCarga(false)
         }
-        // const inicio = async () => {
-        //     if (!currentGames.length) {
-        //         await dispatch(getAllGames())
-        //         await dispatch(getGenres())
-        //         setCarga(false)
-        //     }
-        //     if (reset.length) {
-        //         dispatch(resetDetails())
-        //         setCarga(false)
-        //     }
-        //     return currentGames
-        // }
-        // inicio()
     }, [])
 
     if (carga) {
@@ -91,6 +82,8 @@ const Home = () => {
 
 
             <div className={styless.filters}>
+             {/* filtros */}
+
                 <div >
                     <select onChange={e => handleGenres(e)}>
                         <option value="ALL" className={styless.option}>All Genres</option>
@@ -123,6 +116,7 @@ const Home = () => {
                         <option value="min">Min-max</option>
                     </select>
                 </div>
+
             </div>
 
             <div className={styless.paginate}>
@@ -131,7 +125,6 @@ const Home = () => {
                     paginado={paginado}
                 />
             </div>
-
 
             <CardContainer currentGames={currentGames} />
             {/* <img src={image} alt="not found"></img> */}

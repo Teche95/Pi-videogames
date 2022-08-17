@@ -16,11 +16,7 @@ const Details = (props) => {
         dispatch(getGameByID(props.match.params.id))
     }, [dispatch, props.match.params.id])
 
-    const handleDeleteGame = () => {
-        dispatch(deleteGame(props.match.params.id))
-        alert("juego borrado")
-        history.push("/home")
-    }
+  
 
     return (
 
@@ -35,9 +31,6 @@ const Details = (props) => {
 
                         <div>
 
-                            {
-                                // typeof gameDetailed[0].id === "string" && <button onClick={handleDeleteGame}>Borrar Juego</button>
-                            }
                             <div className={styles.cardcont}>
                                 <h1 className={styles.name}>{gameDetailed[0].name}</h1>
                                 <img className={styles.image} src={gameDetailed[0].image} alt="img not found" width='300px' height="200px" />

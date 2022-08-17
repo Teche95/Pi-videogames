@@ -9,7 +9,6 @@ const initialState = {
 function Reducer(state = initialState, action) {
     switch (action.type) {
         case "GET_ALL_GAMES":
-
             return {
                 ...state,
                 allGames: action.payload,
@@ -122,14 +121,7 @@ function Reducer(state = initialState, action) {
                 ...state,
                 platforms: action.payload
             }
-        case "DELETE_GAME":
-            //  state.allGamesAux
-            // console.log(delete1);
-            let oneGame = state.allGamesAux.filter(el => el.id !== action.payload)
-            return {
-                ...state,
-                allGames: oneGame
-            }
+       
         default:
             return state
     }

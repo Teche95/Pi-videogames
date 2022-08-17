@@ -25,7 +25,6 @@ const getApiInfo = async () => {
                     released: el.released,
                     rating: el.rating,
                     platforms: el.platforms.map(el => el.platform.name)
-                    
                 })
             })
         }
@@ -48,15 +47,6 @@ const getDbInfo = async () => {
             }
         },
     })
-
-    // "genres": [
-    //     {
-    //         "name": "Action"
-    //     },
-    //     {
-    //         "name": "Adventure"
-    //     }
-    // ]
 
     let b = a.map(el => {
         return {
@@ -102,7 +92,7 @@ router.get("/videogames", async (req, res) => {
         if (name) {
             let gameResult = allgames
                 .filter(game => game.name.toLowerCase().includes(name.toLowerCase()))
-                // .slice(0, 15);
+            // .slice(0, 15);
             gameResult.length > 0
                 ? res.status(200).json(gameResult)
                 : res.send([])
@@ -127,10 +117,9 @@ router.get("/videogames", async (req, res) => {
 
 router.get("/videogame/:id", async (req, res) => {
     const { id } = req.params
-    // console.log(id)
+    // id api
     try {
         if (id.length <= 8 && typeof id === 'string') {
-            // console.log("buenas")
             let gameApi = await axios.get(`https://api.rawg.io/api/games/${id}?key=${apikey}`)
             let detailGame = {
                 name: gameApi.data.name,
@@ -140,18 +129,10 @@ router.get("/videogame/:id", async (req, res) => {
                 released: gameApi.data.released,
                 rating: gameApi.data.rating,
                 platforms: gameApi.data.platforms.map(el => el.platform.name)
-                
             }
             res.status(200).send(detailGame)
-            // console.log(detailGame)
-            // console.log(detailGame)
         } else {
-            // si no es un id comun entra en este else para buscar un uuid
-            // podria buscar con un findone para encontrar el primer resultado. 
-            // videogame.findOne
-            // tengo que traer el juego creado de la base de datos e incluirle la tabla genres
-            // para guardar datos en la db se usa findOrCreate
-
+            // uuid
             let gameDb = await Videogame.findOne({
                 where: {
                     id
@@ -175,39 +156,20 @@ router.get("/videogame/:id", async (req, res) => {
                 rating: gameDb.rating,
                 platforms: gameDb.platforms,
                 createdInDb: gameDb.createdInDb
-                // genres =[
-                // "accion",
-                // "aventura"
-                // ]
-
             }
-            // console.log(b)
             res.status(200).send(b)
         }
     } catch (error) {
         res.status(404).send("Id invalido o inexistente")
     }
-    // PROBAR RUTA DE UUID
+
 })
-
-
-
-
-// [] POST /videogames:
-// Recibe los datos recolectados desde el formulario controlado de la ruta de creación de videojuego por body
-// Crea un videojuego en la base de datos, relacionado a sus géneros.
 
 router.post("/videogames", async (req, res) => {
 
     const { name, image, description, released, rating, genres, platforms } = req.body
+
     try {
-
-        // if (!name || !description || !platforms) {
-        //     res.send("faltan datos")
-        // }
-        // [{}{}{}{}]
-
-
         let a = await getAllInfo()
         let b = a.filter(el => el.name.toLowerCase() === name.toLowerCase())
         if (b.length) res.send("Ya existe un juego con ese nombre")
@@ -229,21 +191,13 @@ router.post("/videogames", async (req, res) => {
                 let genreDb = await Genre.findOne({
                     where: { name: el }
                 })
-                // al newGame le agrega un genero
+
                 newGame.addGenre(genreDb)
             })
             res.send("Juego creado")
-            // if (created) {
-            //     res.send(`Actividad creada: ${JSON.stringify(newGame)} estado: ${created}`)
-            // } else {
-            //     throw new Error("ya existe el juego")
-            // }
-
         }
 
     } catch (error) {
-        // res.status(404).send("error al crear")
-        // res.send(error.message)
         console.log(error.message)
     }
 })
@@ -274,44 +228,9 @@ router.get("/genres", async (req, res) => {
 })
 
 
-router.delete("/delete/:id", async (req, res) => {
-    const { id } = req.params
-    // deberia buscar en la base de datos el id que me pasan y borrar el juego
-    try {
-        let a = await Videogame.destroy({
-            where: {
-                id
-            }
-        })
-        res.status(200).send(`${a} Borrados`)
-    } catch (error) {
-        res.status(404).send("id invalido o inexistente")
-    }
-})
 
+ 
 
-router.put("/put/:id", async (req, res) => {
-    const { id } = req.params
-    const { name, image, description, released, rating } = req.body
-    try {
-        let edit = await Videogame.update(
-            {
-                name,
-                image,
-                description,
-                released,
-                rating
-            },
-            {
-                where: {
-                    id
-                }
-            })
-        res.send(`${edit} Modificados`)
-    } catch (error) {
-        res.status(404).send("id invalido o inexistente")
-    }
-})
 
 const getPlatforms = async () => {
     let arr = []
@@ -324,9 +243,9 @@ const getPlatforms = async () => {
         })
     })
     return arr
-    // console.log(arr)
+   
 }
-// getPlatforms()
+
 
 router.get("/platforms", async (req, res) => {
     let platforms = await getPlatforms()
