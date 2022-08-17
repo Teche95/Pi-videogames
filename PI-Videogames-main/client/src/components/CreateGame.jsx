@@ -44,7 +44,7 @@ const CreateGame = () => {
             errors.description = "No puede ser solo numeros"
         } else if (input.description.trim() === "" || input.description.length < 3) {
             errors.description = "No puede estar vacío"
-        } else if (/[!#$%&?¿°´*¬`~,.<>;':"\]{}()=_+-]/.test(input.description)) {
+        } else if (/[!#$%&?¿°´*¬`~<>;':"\]{}()=_+-]/.test(input.description)) {
             errors.description = "Solo letras y numeros"
         }
 
